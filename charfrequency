@@ -1,0 +1,69 @@
+import java.util.Scanner;
+
+public class CharFrequency {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input
+        System.out.print("Enter a string: ");
+        String text = sc.next();
+
+        // Get frequency data
+        String[][] result = getFrequency(text);
+
+        // Output
+        System.out.println("\nCharacter\tFrequency");
+        System.out.println("-------------------------");
+
+        for (int i = 0; i < result.length; i++) {
+            System.out.println(result[i][0] + "\t\t" + result[i][1]);
+        }
+
+        sc.close();
+    }
+
+    // Method to compute frequency and return 2D array
+    static String[][] getFrequency(String str) {
+
+        int[] freq = new int[256]; // ASCII
+
+        // Count frequency
+        for (int i = 0; i < str.length(); i++) {
+            freq[str.charAt(i)]++;
+        }
+
+        // Count unique characters
+        int uniqueCount = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (freq[str.charAt(i)] != 0) {
+                uniqueCount++;
+                freq[str.charAt(i)] = 0; // mark visited
+            }
+        }
+
+        // Recalculate frequency
+        for (int i = 0; i < str.length(); i++) {
+            freq[str.charAt(i)]++;
+        }
+
+        String[][] result = new String[uniqueCount][2];
+        boolean[] visited = new boolean[256];
+
+        int index = 0;
+
+        // Store character and frequency
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+
+            if (!visited[ch]) {
+                result[index][0] = String.valueOf(ch);
+                result[index][1] = String.valueOf(freq[ch]);
+                visited[ch] = true;
+                index++;
+            }
+        }
+
+        return result;
+    }
+}
