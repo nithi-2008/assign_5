@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+public class WordsWithLength {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input
+        System.out.print("Enter a sentence: ");
+        String text = sc.nextLine();
+
+        // Split words
+        String[] words = splitText(text);
+
+        // Create 2D array (word + length)
+        String[][] result = wordsWithLength(words);
+
+        // Display in tabular format
+        System.out.println("\nWord\tLength");
+        System.out.println("----------------");
+
+        for (int i = 0; i < result.length; i++) {
+            String word = result[i][0];
+            int len = Integer.parseInt(result[i][1]); // convert back to int
+            System.out.println(word + "\t" + len);
+        }
+
+        sc.close();
+    }
+
+    // Method to find length without using length()
+    static int findLength(String str) {
+        int count = 0;
+        try {
+            while (true) {
+                str.charAt(count);
+                count++;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            // end reached
+        }
+        return count;
+    }
+
+    // Split text into words without using split()
+    static String[] splitText(String str) {
+        int len = findLength(str);
+
+        // Count words
+        int words = 1;
+        for (int i = 0; i < len; i++) {
+            if (str.charAt(i) == ' ') {
+                words++;
+            }
+        }
+
+        String[] result = new String[words];
+
+        int start = 0, index = 0;
+
+        for (int i = 0; i < len; i++) {
+            if (str.charAt(i) == ' ') {
+                result[index++] = extractWord(str, start, i);
+                start = i + 1;
+            }
+        }
+
+        // Last word
+        result[index] = extractWord(str, start, len);
+
+        return result;
+    }
+
+    // Extract word using charAt()
+    static String extractWord(String str, int start, int end) {
+        String word = "";
+        for (int i = start; i < end; i++) {
+            word += str.charAt(i);
+        }
+        return word;
+    }
+
+    // Create 2D array [word][length]
+    static String[][] wordsWithLength(String[] words) {
+        String[][] result = new String[words.length][2];
+
+        for (int i = 0; i < words.length; i++) {
+            result[i][0] = words[i];
+            int len = findLength(words[i]);
+            result[i][1] = String.valueOf(len); // convert int to String
+        }
+
+        return result;
+    }
+}
