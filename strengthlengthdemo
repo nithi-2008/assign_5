@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class StringLengthDemo {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input
+        System.out.print("Enter a string: ");
+        String text = sc.next();
+
+        // User-defined method
+        int customLength = findLength(text);
+
+        // Built-in method
+        int actualLength = text.length();
+
+        // Output
+        System.out.println("Length using custom method: " + customLength);
+        System.out.println("Length using built-in method: " + actualLength);
+
+        sc.close();
+    }
+
+    // Method to find length without using length()
+    static int findLength(String str) {
+        int count = 0;
+
+        try {
+            while (true) {
+                str.charAt(count); // keep accessing until exception occurs
+                count++;
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            // Exception occurs when index exceeds string length
+        }
+
+        return count;
+    }
+}
