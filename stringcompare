@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class StringCompare {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Take input
+        System.out.print("Enter first string: ");
+        String str1 = sc.next();
+
+        System.out.print("Enter second string: ");
+        String str2 = sc.next();
+
+        // Compare using custom method
+        boolean result1 = compareUsingCharAt(str1, str2);
+
+        // Compare using built-in method
+        boolean result2 = str1.equals(str2);
+
+        // Display results
+        System.out.println("Result using charAt(): " + result1);
+        System.out.println("Result using equals(): " + result2);
+
+        // Check if both results are same
+        if (result1 == result2) {
+            System.out.println("Both methods give the same result.");
+        } else {
+            System.out.println("Results are different.");
+        }
+
+        sc.close();
+    }
+
+    // Method to compare strings using charAt()
+    static boolean compareUsingCharAt(String s1, String s2) {
+
+        // If lengths differ, strings are not equal
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        // Compare character by character
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
