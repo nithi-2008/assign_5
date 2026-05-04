@@ -1,0 +1,30 @@
+public class NullPointerDemo {
+
+    public static void main(String[] args) {
+
+        // Step 1: Generate Exception (will crash if not handled)
+        generateException();
+
+        // Step 2: Handle Exception safely
+        handleException();
+    }
+
+    // Method to generate NullPointerException
+    static void generateException() {
+        String text = null;
+
+        // This will throw NullPointerException
+        System.out.println(text.length());
+    }
+
+    // Method to handle NullPointerException
+    static void handleException() {
+        String text = null;
+
+        try {
+            System.out.println(text.length());
+        } catch (NullPointerException e) {
+            System.out.println("Exception caught: String is null");
+        }
+    }
+}
